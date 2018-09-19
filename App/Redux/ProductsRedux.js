@@ -11,24 +11,23 @@ const { Types, Creators } = createActions({
   /**
    * add product
    */
-  productAddRequest: ['data'],
+  productAddRequest: ['name', 'quantity'],
   productAddSuccess: ['payload'],
-  productsAddFailure: null,
+  productAddFailure: null,
 
   /**
    * edite
    */
   productEditRequest: ['data'],
   productEditSuccess: ['payload'],
-  productsEditFailure: null,
+  productEditFailure: null,
 
   /**
    * delete
    */
   productDeleteRequest: ['data'],
   productDeleteSuccess: ['payload'],
-  productsDeleteFailure: null
-
+  productDeleteFailure: null
 
 })
 
@@ -39,22 +38,18 @@ export default Creators
 
 export const INITIAL_STATE = Immutable({
   data: null,
+  name: "",
+  quantity: 0,
   fetching: null,
   payload: null,
   error: null
 })
 
-/* ------------- Selectors ------------- */
-
-export const ProductsSelectors = {
-  getData: state => state.data
-}
-
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { data }) =>
-  state.merge({ fetching: true, data, payload: null })
+export const request = (state, { name, quantity }) =>
+  state.merge({ fetching: true, name, quantity, payload: null })
 
 // successful api lookup
 export const success = (state, action) => {
@@ -117,10 +112,12 @@ export const deleteSuccess = (state, action) => {
 export const deleteFailure = state =>
   state.merge({ fetching: false, error: true, payload: null })
 
-
 /* ------------- Hookup Reducers To Types ------------- */
 
 export const reducer = createReducer(INITIAL_STATE, {
+  /**
+   * Listing
+   */
   [Types.PRODUCTS_REQUEST]: request,
   [Types.PRODUCTS_SUCCESS]: success,
   [Types.PRODUCTS_FAILURE]: failure,
@@ -143,5 +140,4 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.PRODUCT_DELETE_REQUEST]: deleteRequest,
   [Types.PRODUCT_DELETE_SUCCESS]: deleteSuccess,
   [Types.PRODUCT_DELETE_FAILURE]: deleteFailure
-
 })

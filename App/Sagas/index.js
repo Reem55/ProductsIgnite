@@ -31,8 +31,8 @@ export default function * root () {
     // some sagas receive extra parameters in addition to an action
     takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api),
     takeLatest(ProductsTypes.PRODUCTS_REQUEST, getProducts),
-    takeLatest(ProductsTypes.PRODUCT_ADD, addProduct),
-    takeLatest(ProductsTypes.PRODUCT_EDIT, editProduct),
-    takeLatest(ProductsTypes.PRODUCT_DELETE, deleteProduct)
+    takeLatest(ProductsTypes.PRODUCT_ADD_REQUEST, addProduct),
+    takeLatest(ProductsTypes.PRODUCT_EDIT_REQUEST, editProduct),
+    takeLatest(ProductsTypes.PRODUCT_DELETE_REQUEST, deleteProduct)
   ])
 }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { View, Text, ListView, FlatList, Platform, StyleSheet} from 'react-native'
 import { connect } from 'react-redux'
+import ProductsActions from '../Redux/ProductsRedux'
 import { createStackNavigtor } from 'react-navigation'
 
-
-export default class List extends Component {
+let List = class List extends Component {
   static NavigationOptions = ({ navigation }) => {
     return {
       title: 'List Messages',
@@ -18,6 +18,16 @@ export default class List extends Component {
     };
   }
 
-
 }
 
+function mapStateToProps (state) {
+  return { products: state.products}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getProducts: () => dispatch(ProductsActions.productsRequest())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(List)

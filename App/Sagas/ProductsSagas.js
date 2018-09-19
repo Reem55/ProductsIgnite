@@ -22,9 +22,8 @@ export function * getProducts (api, action) {
  * ADD
  **/
 export function * addProduct (api, action) {
-  const {data} = action
-  const response = yield
-  call(api.addProduct, data)
+  const {name, quantity} = action
+  const response = yield call(api.postProduct, name, quantity)
   if (response.ok) {
     yield
     put(ProductsActions.ProductaddSuccess(response.data))
